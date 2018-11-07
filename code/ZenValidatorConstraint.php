@@ -2,6 +2,8 @@
 
 use SilverStripe\Forms\FormField;
 use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\Assets\File;
+use SilverStripe\View\Requirements;
 
 /**
  * @package ZenValidator
