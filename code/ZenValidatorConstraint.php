@@ -1202,49 +1202,46 @@ class Constraint_dimension extends ZenValidatorConstraint
 
                 // Now have the file double-check it is an image and if so then
                 // get some information about the image using PHPs getimagesize()
-                if ($file->ClassName == 'Image') {
-                    $info = getimagesize(BASE_PATH . "/" . $file->Filename);
+                if ($file->ClassName == Image::class) {
 
-                    if ($info && is_array($info)) {
-                        $width = $info[0];
-                        $height = $info[1];
+                    $width = $file->getWidth();
+                    $height = $file->getHeight();
 
-                        switch ($this->type) {
-                            case self::WIDTH:
-                                return $width == $this->val1;
-                                break;
-                            case self::HEIGHT:
-                                return $height == $this->val1;
-                                break;
-                            case self::WIDTH_HEIGHT:
-                                return (($width == $this->val1) && ($height == $this->val2));
-                                break;
-                            case self::RATIO:
-                                $baseWidth = floor($width / $this->val1);
-                                $baseHeight = floor($height / $this->val2);
-                                return $baseWidth == $baseHeight;
-                                break;
-                            case self::MIN_WIDTH:
-                                return $width >= $this->val1;
-                                break;
-                            case self::MIN_HEIGHT:
-                                return $height >= $this->val1;
-                                break;
-                            case self::MIN_WIDTH_HEIGHT:
-                                return (($width >= $this->val1) && ($height >= $this->val2));
-                                break;
-                            case self::MAX_WIDTH:
-                                return $width <= $this->val1;
-                                break;
-                            case self::MAX_HEIGHT:
-                                return $height <= $this->val1;
-                                break;
-                            case self::MAX_WIDTH_HEIGHT:
-                                return (($width <= $this->val1) && ($height <= $this->val2));
-                                break;
-                            default:
-                                throw new Exception('Invalid type : ' . $this->type);
-                        }
+                    switch ($this->type) {
+                        case self::WIDTH:
+                            return $width == $this->val1;
+                            break;
+                        case self::HEIGHT:
+                            return $height == $this->val1;
+                            break;
+                        case self::WIDTH_HEIGHT:
+                            return (($width == $this->val1) && ($height == $this->val2));
+                            break;
+                        case self::RATIO:
+                            $baseWidth = floor($width / $this->val1);
+                            $baseHeight = floor($height / $this->val2);
+                            return $baseWidth == $baseHeight;
+                            break;
+                        case self::MIN_WIDTH:
+                            return $width >= $this->val1;
+                            break;
+                        case self::MIN_HEIGHT:
+                            return $height >= $this->val1;
+                            break;
+                        case self::MIN_WIDTH_HEIGHT:
+                            return (($width >= $this->val1) && ($height >= $this->val2));
+                            break;
+                        case self::MAX_WIDTH:
+                            return $width <= $this->val1;
+                            break;
+                        case self::MAX_HEIGHT:
+                            return $height <= $this->val1;
+                            break;
+                        case self::MAX_WIDTH_HEIGHT:
+                            return (($width <= $this->val1) && ($height <= $this->val2));
+                            break;
+                        default:
+                            throw new Exception('Invalid type : ' . $this->type);
                     }
                 }
             }
